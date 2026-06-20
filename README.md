@@ -21,21 +21,59 @@ O processo se repete enquanto a tecla for mantida pressionada, avançando automa
 ## Pré-requisitos
 
 - Windows 10 ou 11
-- Python 3.8 ou superior → [python.org/downloads](https://www.python.org/downloads/)
+- Python 3.8 ou superior (veja o guia abaixo)
 - Albion Online instalado
+
+---
+
+## Instalando o Python no Windows
+
+> Pule esta etapa se o Python já estiver instalado.
+
+**1.** Acesse [python.org/downloads](https://www.python.org/downloads/) e clique em **Download Python 3.x.x** (a versão mais recente).
+
+**2.** Execute o instalador baixado. Na primeira tela, marque obrigatoriamente a opção:
+
+```
+☑ Add Python to PATH
+```
+
+> Sem essa opção marcada, os comandos `python` e `pip` não vão funcionar no terminal.
+
+**3.** Clique em **Install Now** e aguarde a instalação terminar.
+
+**4.** Verifique se foi instalado corretamente abrindo o **Prompt de Comando** (`Win + R` → digite `cmd` → Enter) e executando:
+
+```
+python --version
+```
+
+A resposta deve ser algo como `Python 3.12.x`. Se aparecer um erro, reinicie o computador e tente novamente.
 
 ---
 
 ## Instalação
 
-```bash
-# 1. Clone o repositório
-git clone https://github.com/seu-usuario/albion-auto-vac.git
-cd albion-auto-vac
+**1.** Baixe o projeto — clique em **Code → Download ZIP** no GitHub e extraia a pasta, ou clone via terminal:
 
-# 2. Instale as dependências
+```bash
+git clone https://github.com/Mazuk1/albion-auto-vac.git
+cd albion-auto-vac
+```
+
+**2.** Instale as dependências do projeto abrindo o terminal **dentro da pasta** e executando:
+
+```bash
 pip install -r requirements.txt
 ```
+
+Aguarde o download terminar. Você verá algo como:
+
+```
+Successfully installed pyautogui-0.9.54 keyboard-0.13.5 ...
+```
+
+Se aparecer o erro `'pip' não é reconhecido`, feche e reabra o terminal e tente novamente. Se persistir, reinstale o Python marcando a opção **Add Python to PATH**.
 
 ---
 
