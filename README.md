@@ -20,9 +20,11 @@ O processo se repete enquanto a tecla for mantida pressionada, avançando automa
 
 ## Pré-requisitos
 
-- Windows 10 ou 11
+- Windows 10/11 **ou** Linux (Ubuntu e derivados)
 - Python 3.8 ou superior (veja o guia abaixo)
 - Albion Online instalado
+
+> **Linux:** os pacotes `pyautogui` e `keyboard` usados no Windows não funcionam no Linux sem privilégios de root. Use os arquivos `Albion_CriarOrdensVAC_linux.py`, `calibrar_posicoes_linux.py` e `requirements-linux.txt`, descritos na seção [Uso no Linux](#uso-no-linux-ubuntu) — eles usam `pynput`, que funciona sem root via X11/XWayland.
 
 ---
 
@@ -163,6 +165,43 @@ Para remover a tarefa depois:
 
 ```powershell
 Unregister-ScheduledTask -TaskName "AlbionCriarOrdensVAC" -Confirm:$false
+```
+
+---
+
+## Uso no Linux (Ubuntu)
+
+Os pacotes `pyautogui` e `keyboard` da versão Windows não são compatíveis com o Linux: `keyboard` exige privilégios de root para ler eventos de teclado, e `pyautogui` depende de bibliotecas X11 que não vêm instaladas por padrão. Por isso o repositório inclui uma versão alternativa baseada em `pynput`, que funciona no Ubuntu (X11 ou Wayland com XWayland) sem precisar de root:
+
+- `Albion_CriarOrdensVAC_linux.py` — versão Linux do auto clicker
+- `calibrar_posicoes_linux.py` — versão Linux do calibrador de posições
+- `requirements-linux.txt` — dependências (`pynput`)
+
+### Instalação manual
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install -r requirements-linux.txt
+.venv/bin/python3 calibrar_posicoes_linux.py   # para calibrar as posições
+.venv/bin/python3 Albion_CriarOrdensVAC_linux.py
+```
+
+Depois de calibrar, cole o resultado no bloco `POSICOES` de `Albion_CriarOrdensVAC_linux.py`, da mesma forma descrita na seção [Configuração](#configuração).
+
+### Iniciando automaticamente com o Ubuntu
+
+O script `instalar_autostart_linux.sh` cria um ambiente virtual, instala as dependências e registra um serviço de usuário do `systemd` que inicia o auto clicker automaticamente ao fazer login na sessão gráfica:
+
+```bash
+./instalar_autostart_linux.sh
+```
+
+Comandos úteis depois de instalado:
+
+```bash
+systemctl --user status albion-auto-vac.service      # ver status
+journalctl --user -u albion-auto-vac.service -f      # ver logs em tempo real
+systemctl --user disable --now albion-auto-vac.service && rm ~/.config/systemd/user/albion-auto-vac.service   # remover
 ```
 
 ---
