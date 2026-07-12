@@ -7,9 +7,8 @@ from pynput import keyboard, mouse
 # CONFIGURAÇÕES — edite esta seção para ajustar ao seu setup
 # ============================================================
 
-# Teclas de atalho para ativar (segure para executar)
-TECLA_1 = {keyboard.Key.alt_l, keyboard.Key.alt_r}
-TECLA_2 = keyboard.KeyCode.from_char('0')
+# Tecla de atalho para ativar (segure para executar)
+TECLA = keyboard.Key.f12
 
 # Intervalo entre cada clique, em segundos (padrão: 0.1)
 INTERVALO = 0.1
@@ -34,7 +33,7 @@ print("=" * 43)
 print("  AUTO CLICKER — Albion Online (Linux)")
 print("  Criador de Ordens de Venda (VAC)")
 print("=" * 43)
-print("  Atalho : Segure ALT + 0 para executar")
+print("  Atalho : Segure F12 para executar")
 print("  Sair   : CTRL + C no terminal")
 print("=" * 43)
 print()
@@ -56,7 +55,7 @@ def _on_release(key):
 
 def atalho_ativo():
     with _lock:
-        return bool(_teclas_pressionadas & TECLA_1) and TECLA_2 in _teclas_pressionadas
+        return TECLA in _teclas_pressionadas
 
 
 def clicar_loop():
