@@ -14,6 +14,12 @@ TECLA_2 = keyboard.KeyCode.from_char('0')
 # Intervalo entre cada clique, em segundos (padrão: 0.1)
 INTERVALO = 0.1
 
+# Escala do display no KDE (Configurações > Telas). No Wayland, o KWin
+# interpreta o movimento do cursor em coordenadas lógicas, mas a calibração
+# devolve pixels físicos — por isso dividimos pela escala ao clicar.
+# Use 1.0 se estiver em sessão X11 ou sem escala.
+ESCALA = 1.7
+
 # Posições dos cliques na tela (x, y)
 # Use o script calibrar_posicoes_linux.py para descobrir as coordenadas certas
 # para a sua resolução de monitor.
@@ -23,9 +29,9 @@ INTERVALO = 0.1
 #   2. Clique em confirmar/aceitar o preço
 #   3. Clique em "Criar Pedido de Venda"
 POSICOES = [
-    (2509, 864),   # 1. Campo/confirmação de preço (-1 prata)
-    (1665, 1260),  # 2. Confirmar quantidade
-    (2298, 1464),  # 3. Botão "Criar Pedido de Venda"
+    (2474, 873),   # 1. Campo/confirmação de preço (-1 prata)
+    (1658, 1259),  # 2. Confirmar quantidade
+    (2301, 1458),  # 3. Botão "Criar Pedido de Venda"
 ]
 
 # ============================================================
@@ -62,7 +68,7 @@ def atalho_ativo():
 def clicar_loop():
     while atalho_ativo():
         for x, y in POSICOES:
-            mouse_ctrl.position = (x, y)
+            mouse_ctrl.position = (x / ESCALA, y / ESCALA)
             mouse_ctrl.click(mouse.Button.left)
             time.sleep(INTERVALO)
 
